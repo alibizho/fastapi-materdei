@@ -69,7 +69,7 @@ def scrapedata(year, month):
     tables = asyncio.run(get_tables(info))
 
     eventlist = []
-    for i, d, t in zip_longest(info, date, tables, fillvalue=False):
+    for i, d, t in zip_longest(info, date, tables, fillvalue='There is no table for this event!'):
         item = {
             'Date': d.find('span.date', first=True).text,
             'Block': i.find('a.event-link', first=True).text,
@@ -78,7 +78,7 @@ def scrapedata(year, month):
             'Year': year,
         }
         eventlist.append(item)
-    print(eventlist)
     return eventlist
+
 
 
