@@ -3,6 +3,7 @@ import requests_async as req
 from bs4 import BeautifulSoup
 from itertools import zip_longest
 from requests_html import HTMLSession
+import requests
 
 table_info = []
 
@@ -63,22 +64,24 @@ def scrapedata(year, month):
     info = r.html.find('ul.day-event-box')
     date = r.html.find('div.day-date-box')
 
-
-
-    # TABLE RETURN
     tables = asyncio.run(get_tables(info))
 
+
+
     eventlist = []
+
     for i, d, t in zip_longest(info, date, tables, fillvalue='There is no table for this event!'):
-        item = {
-            'Date': d.find('span.date', first=True).text,
-            'Block': i.find('a.event-link', first=True).text,
-            'Table': t,
-            'Month': month,
-            'Year': year,
-        }
-        eventlist.append(item)
+        try:
+            item = {
+                'Day': d.find('span.date', first=True).text.strip(),
+                'Block': i.find('a.event-link', first=True).text.strip(),
+                'Table': t,
+                'Month': month,
+                'Year': year,
+            }
+            eventlist.append(item)
+        except TypeError:
+            print("FUCK ME")
+
     return eventlist
-
-
 
