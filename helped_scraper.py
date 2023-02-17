@@ -81,7 +81,7 @@ def scrapedata(year, month):
             }
             eventlist.append(item)
         except TypeError:
-            print("FUCK ME")
+            pass
 
     return eventlist
 
