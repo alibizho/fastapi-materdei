@@ -1,10 +1,11 @@
 from fastapi import FastAPI
 from scraper import Scraper
 from helped_scraper import scrapedata
+
+
 app = FastAPI()
 
 quotes = Scraper()
-
 
 @app.get('/events')
 def read_events(year, month):
