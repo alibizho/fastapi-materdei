@@ -70,7 +70,7 @@ def scrapedata(year, month):
 
     eventlist = []
 
-    for i, d, t in zip_longest(info, date, tables, fillvalue='There is no table for this event!'):
+    for i, d, t in zip_longest(info, date, tables, fillvalue=['There is no table for this event!']):
         try:
             item = {
                 'Day': d.find('span.date', first=True).text.strip(),
