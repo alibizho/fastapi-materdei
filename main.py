@@ -9,7 +9,7 @@ quotes = Scraper()
 
 @app.get('/events')
 def read_events(year, month):
-    return scrapedata(year, month)
+    return quotes.scrape_data(year, month)
 
 
 @app.get('/dresses')
