@@ -40,7 +40,7 @@ class Scraper():
                     for no in no_school_event_info:
                         no_school = no.find('dd').get_text().strip()
                         if no_school[0:9] == 'No School':
-                            table_info.append('There is no table for this event!')
+                            table_info.append(['There is no table for this event!'])
 
                     if table:
                         dable = soup.findAll('p', class_='MsoNormal')
