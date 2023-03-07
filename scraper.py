@@ -2,6 +2,7 @@ from requests_html import HTMLSession
 from bs4 import BeautifulSoup
 import requests
 from itertools import zip_longest
+import re
 
 
 class Scraper():
@@ -52,8 +53,9 @@ class Scraper():
                         event_info = soup.findAll('div', class_='event-info')
                         for me in event_info:
                             x = me.find('p')
-                            xx = x.get_text(separator='   ').strip()
-                            table_info.append(xx)
+                            xx = x.get_text(separator='  ')
+                            words = re.split(r'\s{2,}', xx)
+                            table_info.append(words)
 
 
             return table_info
