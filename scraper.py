@@ -50,7 +50,16 @@ class Scraper():
                                 texts.append(text.get_text())
                             table_info.append(texts)
                         else:
-                            table_info.append(table.get_text().strip().split('   '))
+                            dext = table.get_text().strip()
+                            split_list = dext.split()
+                            new_list = []
+                            for i in range(0, len(split_list) - 1, 2):
+                                new_list.append(split_list[i] + ' ' + split_list[i + 1])
+
+                            if len(split_list) % 2 != 0:
+                                new_list.append(split_list[-1])
+
+                            table_info.append(new_list)
 
                     elif semester:
                         event_info = soup.findAll('div', class_='event-info')
@@ -83,7 +92,6 @@ class Scraper():
                 eventlist.append(item)
             except TypeError:
                 print("fail")
-
         return eventlist
 
 
