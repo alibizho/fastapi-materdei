@@ -4,7 +4,6 @@ import requests
 from itertools import zip_longest
 import re
 
-
 class Scraper():
 
     def scrape_data(self, year, month):
@@ -35,7 +34,7 @@ class Scraper():
 
                     soup = BeautifulSoup(b.content, 'html.parser')
 
-                    table = soup.find('table', class_='MsoNormalTable')
+                    table = soup.select_one('table')
                     semester = soup.find('p', class_='MsoNormal')
                     no_school_event_info = soup.findAll('div', class_='event-info')
                     for no in no_school_event_info:
@@ -52,7 +51,7 @@ class Scraper():
                             table_info.append(texts)
                         else:
                             table_info.append(table.get_text().strip().split('   '))
-                            
+
                     elif semester:
                         event_info = soup.findAll('div', class_='event-info')
                         for me in event_info:
