@@ -45,10 +45,14 @@ class Scraper():
 
                     if table:
                         dable = soup.findAll('p', class_='MsoNormal')
-                        texts = []
-                        for text in dable:
-                            texts.append(text.text)
-                        table_info.append(texts)
+                        if dable:
+                            texts = []
+                            for text in dable:
+                                texts.append(text.get_text())
+                            table_info.append(texts)
+                        else:
+                            table_info.append(table.get_text().strip().split('   '))
+                            
                     elif semester:
                         event_info = soup.findAll('div', class_='event-info')
                         for me in event_info:
